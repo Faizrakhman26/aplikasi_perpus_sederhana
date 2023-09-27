@@ -65,19 +65,16 @@ public class App {
                     scanner.nextLine();
 
                     library.updateBook(idToUpdate, newTitle, newAuthor, newYear);
-                    System.out.println("Buku berhasil diupdate!");
-                    System.out.println("\n");
+                    System.out.println("Buku berhasil diupdate!\n");
                     break;
                 case 5:
                     // keluar dari program
                     exit = true;
-                    System.out.println("Terima kasih!");
-                    System.out.println("\n");
+                    System.out.println("Terima kasih!\n");
                     break;
                 default:
                     // jika pilihan tidak valid
-                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
-                    System.out.println("\n");
+                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.\n");
             }
         }
         library.saveBooks();
