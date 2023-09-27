@@ -4,7 +4,7 @@ import java.util.List;
 
 // Kelas dasar untuk buku
 class Book {
-    private static int nextId = 1; // Variabel statik untuk nomor urutan
+    private static int nextId = 1;
     private int id;
     private String title;
     private String author;
@@ -45,6 +45,7 @@ class Book {
         this.year = year;
     }
 
+    // tampilkan data buku
     public void displayInfo() {
         System.out.println("ID\t: " + id);
         System.out.println("Title\t: " + title);
@@ -61,10 +62,12 @@ class Library {
         books = new ArrayList<>();
     }
 
+    // fungsi untuk menambahkan buku
     public void addBook(Book book) {
         books.add(book);
     }
 
+    // fungsi untuk menampilkan data buku
     public void displayBooks() {
         for (Book book : books) {
             book.displayInfo();
@@ -72,11 +75,13 @@ class Library {
         }
     }
 
+    // fungsi untuk menghapus buku
     public void removeBook(int id) {
         books.removeIf(book -> book.getId() == id);
         saveBooks();
     }
 
+    // fungsi untuk mengupdate data buku
     public void updateBook(int id, String newTitle, String newAuthor, int newYear) {
         for (Book book : books) {
             if (book.getId() == id) {
@@ -88,6 +93,7 @@ class Library {
         }
     }
 
+    // fungsi untuk meng-load data buku
     void loadBooks() {
         try (BufferedReader reader = new BufferedReader(new FileReader("books.txt"))) {
             String line;
@@ -106,6 +112,7 @@ class Library {
         }
     }
 
+    // fungsi untuk meng-save data buku
     void saveBooks() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("books.txt"))) {
             for (Book book : books) {
