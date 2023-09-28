@@ -1,4 +1,3 @@
-
 public class EBook extends Book {
     private double fileSizeMB;
 
@@ -14,6 +13,7 @@ public class EBook extends Book {
     public void setFileSizeMB(double fileSizeMB) {
         this.fileSizeMB = fileSizeMB;
     }
+
     // Override metode displayInfo untuk menampilkan informasi khusus EBook
     @Override
     public void displayInfo() {

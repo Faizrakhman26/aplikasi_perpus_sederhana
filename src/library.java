@@ -52,6 +52,36 @@ class Library {
         return null; // Mengembalikan null jika buku dengan ID tidak ditemukan
     }
 
+    public void updateBook(int idToUpdate, String newTitle, String newAuthor, int newYear) {
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            if (book.getId() == idToUpdate) {
+                book.setTitle(newTitle);
+                book.setAuthor(newAuthor);
+                book.setYear(newYear);
+
+                saveBooks();
+                return; // Keluar dari metode setelah pembaruan
+            }
+        }
+    }
+
+    public void updateEBook(int idToUpdate, String newTitle, String newAuthor, int newYear, double newFileSizeMB) {
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            if (book instanceof EBook && book.getId() == idToUpdate) {
+                EBook ebook = (EBook) book;
+                ebook.setTitle(newTitle);
+                ebook.setAuthor(newAuthor);
+                ebook.setYear(newYear);
+                ebook.setFileSizeMB(newFileSizeMB);
+
+                saveBooks();
+                return; // Keluar dari metode setelah pembaruan
+            }
+        }
+    }
+
     // fungsi untuk meng-load data buku
     void loadBooks() {
         try (BufferedReader reader = new BufferedReader(new FileReader("books.txt"))) {
@@ -94,36 +124,6 @@ class Library {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void updateBook(int idToUpdate, String newTitle, String newAuthor, int newYear) {
-        for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            if (book.getId() == idToUpdate) {
-                book.setTitle(newTitle);
-                book.setAuthor(newAuthor);
-                book.setYear(newYear);
-
-                saveBooks();
-                return; // Keluar dari metode setelah pembaruan
-            }
-        }
-    }
-
-    public void updateEBook(int idToUpdate, String newTitle, String newAuthor, int newYear, double newFileSizeMB) {
-        for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            if (book instanceof EBook && book.getId() == idToUpdate) {
-                EBook ebook = (EBook) book;
-                ebook.setTitle(newTitle);
-                ebook.setAuthor(newAuthor);
-                ebook.setYear(newYear);
-                ebook.setFileSizeMB(newFileSizeMB);
-
-                saveBooks();
-                return; // Keluar dari metode setelah pembaruan
-            }
         }
     }
 
