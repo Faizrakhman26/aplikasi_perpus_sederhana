@@ -10,9 +10,22 @@ class Library {
         books = new ArrayList<>();
     }
 
-    // fungsi untuk menambahkan buku
     public void addBook(Book book) {
         books.add(book);
+    }
+
+    public void addEBook(EBook ebook) {
+        books.add(ebook);
+    }
+
+    // fungsi untuk menampilkan Ebook
+    public void displayEBooks() {
+        for (Book book : books) {
+            if (book instanceof EBook) {
+                book.displayInfo();
+                System.out.println("---------------------------");
+            }
+        }
     }
 
     // fungsi untuk menampilkan data buku
@@ -29,16 +42,14 @@ class Library {
         saveBooks();
     }
 
-    // fungsi untuk mengupdate data buku
-    public void updateBook(int id, String newTitle, String newAuthor, int newYear) {
+    // fungsi mencari untuk id buku
+    public Book findBookById(int id) {
         for (Book book : books) {
             if (book.getId() == id) {
-                book.setTitle(newTitle);
-                book.setAuthor(newAuthor);
-                book.setYear(newYear);
-                saveBooks();
+                return book;
             }
         }
+        return null; // Mengembalikan null jika buku dengan ID tidak ditemukan
     }
 
     // fungsi untuk meng-load data buku
@@ -47,12 +58,20 @@ class Library {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 3) {
-                    String title = parts[0];
-                    String author = parts[1];
-                    int year = Integer.parseInt(parts[2]);
-                    Book book = new Book(title, author, year);
-                    books.add(book);
+                if (parts.length >= 4) {
+                    String type = parts[0];
+                    String title = parts[1];
+                    String author = parts[2];
+                    int year = Integer.parseInt(parts[3]);
+
+                    if ("Cetak".equals(type)) {
+                        Book book = new Book(title, author, year);
+                        books.add(book);
+                    } else if ("EBook".equals(type) && parts.length == 5) {
+                        double fileSizeMB = Double.parseDouble(parts[4]);
+                        EBook ebook = new EBook(title, author, year, fileSizeMB);
+                        books.add(ebook);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -64,12 +83,48 @@ class Library {
     void saveBooks() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("books.txt"))) {
             for (Book book : books) {
-                String line = book.getTitle() + "," + book.getAuthor() + "," + book.getYear();
-                writer.write(line);
+                if (book instanceof EBook) {
+                    EBook ebook = (EBook) book;
+                    writer.write("EBook," + ebook.getTitle() + "," + ebook.getAuthor() + "," + ebook.getYear() + ","
+                            + ebook.getFileSizeMB());
+                } else if (book instanceof Book) {
+                    writer.write("Cetak," + book.getTitle() + "," + book.getAuthor() + "," + book.getYear());
+                }
                 writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void updateBook(int idToUpdate, String newTitle, String newAuthor, int newYear) {
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            if (book.getId() == idToUpdate) {
+                book.setTitle(newTitle);
+                book.setAuthor(newAuthor);
+                book.setYear(newYear);
+
+                saveBooks();
+                return; // Keluar dari metode setelah pembaruan
+            }
+        }
+    }
+
+    public void updateEBook(int idToUpdate, String newTitle, String newAuthor, int newYear, double newFileSizeMB) {
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            if (book instanceof EBook && book.getId() == idToUpdate) {
+                EBook ebook = (EBook) book;
+                ebook.setTitle(newTitle);
+                ebook.setAuthor(newAuthor);
+                ebook.setYear(newYear);
+                ebook.setFileSizeMB(newFileSizeMB);
+
+                saveBooks();
+                return; // Keluar dari metode setelah pembaruan
+            }
+        }
+    }
+
 }

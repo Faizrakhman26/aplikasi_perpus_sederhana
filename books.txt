@@ -1,3 +1,4 @@
-tutorial java oop,faiz,2023
-tutorial database,choir,2023
-tutorial desain,kenn,2022
+Cetak,tutorial DBMS,choir,2023
+EBook,tutorial java oop,faiz,2023,5.0
+EBook,Tutorial Membuat web,Ego,2023,3.0
+Cetak,Mahir Bahasa inggris,jhon,2022

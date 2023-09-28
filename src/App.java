@@ -10,11 +10,12 @@ public class App {
         while (!exit) {
             // Daftar menu pilihan
             System.out.println("Menu:");
-            System.out.println("1. Lihat Buku");
+            System.out.println("1. Lihat Data Buku");
             System.out.println("2. Tambah Buku");
-            System.out.println("3. Hapus Buku");
-            System.out.println("4. Update Buku");
-            System.out.println("5. Keluar");
+            System.out.println("3. Tambah EBook");
+            System.out.println("4. Update Buku/EBook");
+            System.out.println("5. Hapus Buku/EBook");
+            System.out.println("6. Keluar");
             System.out.print("Pilih menu : ");
 
             int choice = scanner.nextInt();
@@ -28,6 +29,7 @@ public class App {
                     library.displayBooks();
                     System.out.println("\n");
                     break;
+
                 case 2:
                     // untuk menginputkan data buku baru
                     System.out.print("Masukkan judul buku  : ");
@@ -43,7 +45,56 @@ public class App {
                     System.out.println("Buku berhasil ditambahkan!");
                     System.out.println("\n");
                     break;
+
                 case 3:
+                    // Untuk menginputkan data buku elektronik baru
+                    System.out.print("Masukkan judul EBook\t: ");
+                    String ebookTitle = scanner.nextLine();
+                    System.out.print("Masukkan nama penulis EBook\t: ");
+                    String ebookAuthor = scanner.nextLine();
+                    System.out.print("Masukkan tahun terbit EBook\t: ");
+                    int ebookYear = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Masukkan ukuran file EBook (MB)\t: ");
+                    double fileSizeMB = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    EBook newEBook = new EBook(ebookTitle, ebookAuthor, ebookYear, fileSizeMB);
+                    library.addEBook(newEBook);
+                    System.out.println("EBook berhasil ditambahkan!");
+                    System.out.println("\n");
+                    break;
+
+                case 4:
+                    // Mengupdate data buku
+                    System.out.print("Masukkan ID buku yang ingin diupdate: ");
+                    int idToUpdate = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("\nMasukkan judul baru\t: ");
+                    String newTitle = scanner.nextLine();
+                    System.out.print("Masukkan nama penulis baru\t: ");
+                    String newAuthor = scanner.nextLine();
+                    System.out.print("Masukkan tahun terbit baru\t: ");
+                    int newYear = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Book bookToUpdate = library.findBookById(idToUpdate);
+                    if (bookToUpdate != null) {
+                        if (bookToUpdate instanceof EBook) {
+                            System.out.print("Masukkan ukuran file EBook baru (MB)\t: ");
+                            double newFileSizeMB = scanner.nextDouble();
+                            scanner.nextLine();
+                            library.updateEBook(idToUpdate, newTitle, newAuthor, newYear, newFileSizeMB);
+                        } else {
+                            library.updateBook(idToUpdate, newTitle, newAuthor, newYear);
+                        }
+                        System.out.println("\nBuku berhasil diupdate!\n");
+                    } else {
+                        System.out.println("Buku dengan ID tersebut tidak ditemukan.\n");
+                    }
+                    break;
+
+                case 5:
                     // untuk menghapus data buku
                     System.out.print("Masukkan ID buku yang ingin dihapus: ");
                     int IdToRemove = scanner.nextInt();
@@ -51,31 +102,18 @@ public class App {
                     System.out.println("Buku berhasil dihapus!");
                     System.out.println("\n");
                     break;
-                case 4:
-                    // mengupdate data buku
-                    System.out.print("Masukkan ID buku yang ingin diupdate: ");
-                    int idToUpdate = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Masukkan judul baru: ");
-                    String newTitle = scanner.nextLine();
-                    System.out.print("Masukkan nama penulis baru: ");
-                    String newAuthor = scanner.nextLine();
-                    System.out.print("Masukkan tahun terbit baru: ");
-                    int newYear = scanner.nextInt();
-                    scanner.nextLine();
 
-                    library.updateBook(idToUpdate, newTitle, newAuthor, newYear);
-                    System.out.println("Buku berhasil diupdate!\n");
-                    break;
-                case 5:
-                    // keluar dari program
+                case 6:
+                    // Keluar dari program
                     exit = true;
                     System.out.println("Terima kasih!\n");
                     break;
+
                 default:
-                    // jika pilihan tidak valid
+                    // Jika pilihan tidak valid
                     System.out.println("Pilihan tidak valid. Silakan pilih lagi.\n");
             }
+
         }
         library.saveBooks();
 

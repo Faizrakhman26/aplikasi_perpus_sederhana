@@ -12,6 +12,9 @@ class Book {
         this.year = year;
     }
 
+    public Book(int id2, String newTitle, String newAuthor, int newYear) {
+    }
+
     public int getId() {
         return id;
     }
