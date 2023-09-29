@@ -56,7 +56,6 @@ class Library {
         return null;
     }
 
-    // method untuk update data buku
     public void updateBook(int idToUpdate, String newTitle, String newAuthor, int newYear) {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
@@ -71,7 +70,6 @@ class Library {
         }
     }
 
-    // method untuk update data EBook
     public void updateEBook(int idToUpdate, String newTitle, String newAuthor, int newYear, double newFileSizeMB) {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);

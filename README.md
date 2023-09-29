@@ -20,7 +20,7 @@ To get started with this Java project, make sure you have Java and a compatible 
 Clone this repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/Faizrakhman26/aplikasi-perpus-sederhana.git
+git clone https://github.com/Faizrakhman26/aplikasi_perpus_sederhana.git
 ```
 
 Open the project folder in your IDE (e.g., Visual Studio Code) to start working on it.
