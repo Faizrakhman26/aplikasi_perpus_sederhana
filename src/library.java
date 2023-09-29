@@ -2,23 +2,27 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Kelas perpustakaan
+// Kelas Library
 class Library {
+    // field buku
     private List<Book> books;
 
+    // kostruktor library
     public Library() {
         books = new ArrayList<>();
     }
 
+    // method untuk menambah buku
     public void addBook(Book book) {
         books.add(book);
     }
 
+    // method untuk menambah EBook
     public void addEBook(EBook ebook) {
         books.add(ebook);
     }
 
-    // fungsi untuk menampilkan Ebook
+    // method untuk menampilkan EBook
     public void displayEBooks() {
         for (Book book : books) {
             if (book instanceof EBook) {
@@ -28,7 +32,7 @@ class Library {
         }
     }
 
-    // fungsi untuk menampilkan data buku
+    // method untuk menampilak buku
     public void displayBooks() {
         for (Book book : books) {
             book.displayInfo();
@@ -36,22 +40,23 @@ class Library {
         }
     }
 
-    // fungsi untuk menghapus buku
+    // method untuk menghapus buku
     public void removeBook(int id) {
         books.removeIf(book -> book.getId() == id);
         saveBooks();
     }
 
-    // fungsi mencari untuk id buku
+    // method untuk mencari untuk id buku
     public Book findBookById(int id) {
         for (Book book : books) {
             if (book.getId() == id) {
                 return book;
             }
         }
-        return null; // Mengembalikan null jika buku dengan ID tidak ditemukan
+        return null;
     }
 
+    // method untuk update data buku
     public void updateBook(int idToUpdate, String newTitle, String newAuthor, int newYear) {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
@@ -61,11 +66,12 @@ class Library {
                 book.setYear(newYear);
 
                 saveBooks();
-                return; // Keluar dari metode setelah pembaruan
+                return;
             }
         }
     }
 
+    // method untuk update data EBook
     public void updateEBook(int idToUpdate, String newTitle, String newAuthor, int newYear, double newFileSizeMB) {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
@@ -77,12 +83,12 @@ class Library {
                 ebook.setFileSizeMB(newFileSizeMB);
 
                 saveBooks();
-                return; // Keluar dari metode setelah pembaruan
+                return;
             }
         }
     }
 
-    // fungsi untuk meng-load data buku
+    // method untuk memuat (load) data semua buku
     void loadBooks() {
         try (BufferedReader reader = new BufferedReader(new FileReader("books.txt"))) {
             String line;
@@ -109,7 +115,7 @@ class Library {
         }
     }
 
-    // fungsi untuk meng-save data buku
+    // method untuk menyimpan (save) data semua buku
     void saveBooks() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("books.txt"))) {
             for (Book book : books) {

@@ -4,6 +4,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         Library library = new Library();
         Scanner scanner = new Scanner(System.in);
+
+        // memuat(load) semua data buku
         library.loadBooks();
 
         boolean exit = false;
@@ -24,7 +26,7 @@ public class App {
             // fungsi dari menu
             switch (choice) {
                 case 1:
-                    // untuk menampilkan daftar buku
+                    // untuk menampilkan semua daftar buku
                     System.out.println("Daftar Buku di Perpustakaan: \n");
                     library.displayBooks();
                     System.out.println("\n");
@@ -115,6 +117,7 @@ public class App {
             }
 
         }
+        // menyimpan semua data buku
         library.saveBooks();
 
         scanner.close();
