@@ -46,7 +46,7 @@ class Library {
         saveBooks();
     }
 
-    // method untuk mencari untuk id buku
+    // method untuk mencari id buku
     public Book findBookById(int id) {
         for (Book book : books) {
             if (book.getId() == id) {
@@ -56,6 +56,7 @@ class Library {
         return null;
     }
 
+    // method untuk mengupdate data buku
     public void updateBook(int idToUpdate, String newTitle, String newAuthor, int newYear) {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
@@ -70,6 +71,7 @@ class Library {
         }
     }
 
+    // method untuk mngupdate data Ebook
     public void updateEBook(int idToUpdate, String newTitle, String newAuthor, int newYear, double newFileSizeMB) {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
